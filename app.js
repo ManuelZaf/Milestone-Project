@@ -1,7 +1,9 @@
 const path = require('path');
 const express = require('express');
+const csrf = require('csurf');
 
 const db = require('./data/database');
+const addCsrfTokenMiddleware = require('./middlewares/csrf-token');
 const authRoutes = require('./routes/auth.routes')
 //one dot means to look in the same folder
 
@@ -11,7 +13,11 @@ app.set('view engine', 'ejs'); //Activation of ejs package
 app.set('views', path.join(__dirname, 'views')); //we use the path package to set up the ejs
 
 app.use(express.static('public'));
+app.use(express.urlencoded({extended: false}));
 
+app.use(csrf()); //middleware to add CSRF package
+app.use(addCsrfTokenMiddleware); //the custom middleware using the CSRF package
+//We don't execute the custom middleware. It is available for express to execute it
 app.use(authRoutes);
 
 db.connectToDatabase().then(function(){
