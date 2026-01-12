@@ -9,7 +9,8 @@ const addCsrfTokenMiddleware = require("./middlewares/csrf-token");
 const errorHandlerMiddleware = require("./middlewares/error-handler");
 const authRoutes = require("./routes/auth.routes");
 //one dot means to look in the same folder
-
+const productRoutes = require('./routes/products.routes');
+const baseRoutes = require('./routes/base.routes');
 const app = express();
 
 app.set("view engine", "ejs"); //Activation of ejs package
@@ -24,7 +25,11 @@ app.use(expressSession(sessionConfig));
 app.use(csrf()); //middleware to add CSRF package
 app.use(addCsrfTokenMiddleware); //the custom middleware using the CSRF package
 //We don't execute the custom middleware. It is available for express to execute it
+
+app.use(baseRoutes);
 app.use(authRoutes);
+app.use(productRoutes);
+
 
 app.use(errorHandlerMiddleware);
 

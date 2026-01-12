@@ -6,7 +6,8 @@
     <%- include('../../shared/includes/header')%>
 <main>
 <h1>Login</h1>
-<form action="/signup" method="POST">
+<form action="/login" method="POST"> //Use of post request. we change 
+    //something on the server, we change the session to mark the user as logged in
     <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
     <p>
    
