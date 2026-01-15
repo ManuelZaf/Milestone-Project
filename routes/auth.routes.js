@@ -12,4 +12,7 @@ router.post('/signup', authController.signup);
 
 router.get('/login', authController.getLogin);
 
+router.post('/login', authController.login);
+//We are able to send post requests there and trigger our authentication
+
 module.exports = router;
