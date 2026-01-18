@@ -15,14 +15,14 @@ class User {
   }
 
   getUserWithSameEmail() {
-    return db.getDb().collection("users").findOne({ email: this.email }); //findOne yields a promise and we return it
-    //That is why we haven't added async
+    return db.getDb().collection("users").findOne({ email: this.email }); /*findOne yields a promise and we return it
+    That is why we haven't added async */
   }
 
-  //define a method on this class
-  //to access the database we require the database.js file
-  //where the getDb is exported
-  //bcrypt.hash and insertOne create promises
+  /*define a method on this class
+  to access the database we require the database.js file
+  where the getDb is exported
+  bcrypt.hash and insertOne create promises */
   async signup() {
     const hashedPassword = await bcrypt.hash(this.password, 12);
 

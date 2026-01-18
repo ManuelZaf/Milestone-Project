@@ -16,9 +16,9 @@ async function signup(req, res) {
     req.body.city
   ); 
   //we create a concrete instance of a User blueprint
-  await user.signup(); // We call the signup method, which is defined
-  //to store that user in the database.
-  //the signup method returns a promise
+  await user.signup(); /* We call the signup method, which is defined
+  to store that user in the database.
+  the signup method returns a promise */
 
   res.redirect('/login');
   
@@ -48,10 +48,16 @@ authUtil.createUserSession(req, existingUser, function(){
 });
 }
 
+function logout(req, res){
+  authUtil.destroyUserAuthSession(req);
+  res.redirect('/login');
+}
+
 
 module.exports = {
   getSignup: getSignup,
   getLogin: getLogin,
   signup: signup,
-  login: login
+  login: login,
+  logout: logout
 };

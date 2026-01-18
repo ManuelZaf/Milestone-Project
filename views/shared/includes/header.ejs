@@ -5,7 +5,11 @@
             <% if (locals.isAuth) { %> 
             <!-- Check for authenticated user -->
             <li>
-                <button>Logout</button>
+                <form action="/logout" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+                 <button>Logout</button>   
+                </form>
+                
             </li>
             <% } %>
         </ul>

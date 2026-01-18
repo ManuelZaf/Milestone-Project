@@ -24,8 +24,8 @@ const sessionConfig = createSessionConfig();
 app.use(expressSession(sessionConfig));
 
 app.use(csrf()); //middleware to add CSRF package
-app.use(addCsrfTokenMiddleware); //the custom middleware using the CSRF package
-//We don't execute the custom middleware. It is available for express to execute it
+app.use(addCsrfTokenMiddleware); /*the custom middleware using the CSRF package
+We don't execute the custom middleware. It is available for express to execute it*/
 app.use(checkAuthStatusMiddleware);
 
 app.use(baseRoutes);
@@ -42,6 +42,6 @@ db.connectToDatabase()
     console.log('Failed to connect to the database!');
     console.log(error);
   });
-//Only with successful connection to the database,
-//the server can be started
-//If not, we have an error
+/*Only with successful connection to the database,
+the server can be started
+If not, we have an error*/
