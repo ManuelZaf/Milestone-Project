@@ -19,6 +19,14 @@ class User {
     That is why we haven't added async */
   }
 
+  async existsAlready(){
+    const existingUser = await this.getUserWithSameEmail();
+    if(existingUser){
+      return true;
+    }
+    return false;
+  }
+
   /*define a method on this class
   to access the database we require the database.js file
   where the getDb is exported
