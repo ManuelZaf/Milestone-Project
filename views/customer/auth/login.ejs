@@ -6,6 +6,12 @@
     <%- include('../../shared/includes/header')%>
 <main>
 <h1>Login</h1>
+<% if (inputData.errorMessage) { %>
+   <section class="alert">
+      <h2>Invalid Credentials</h2>
+      <p><%= inputData.errorMessage %></p>
+   </section>
+   <% } %>
 <form action="/login" method="POST"> 
     <!-- Use of post request. we change 
     something on the server, we change the session to mark the user as logged in -->
@@ -13,11 +19,11 @@
     <p>
    
        <label for="email">E-Mail</label> <!--for must the same with the id of the input to be connected-->
-    <input type="email" id="email" name="email" required> 
+    <input type="email" id="email" name="email" value="<%= inputData.email %>" required> 
     </p>
     <p>
        <label for="password">Password</label> 
-    <input type="password" id="password" name="password" minlength="6" required> 
+    <input type="password" id="password" name="password" minlength="6" value="<%= inputData.password %>" required> 
     </p>
    
     <button class="btn">Login</button>
