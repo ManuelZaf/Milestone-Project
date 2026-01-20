@@ -2,13 +2,21 @@ const User = require('../models/user.model');
 //class User is here available
 const authUtil = require('../util/authentication');
 const validation = require('../util/validation');
+const sessionFlash = require('../util/session-flash');
+
 function getSignup(req, res) {
   res.render('customer/auth/signup');
 }
 
 async function signup(req, res, next) {
-  
-
+  const enteredData =  {
+      email: req.body.email,
+      password: req.body.password,
+      fullname: req.body.fullname,
+      street: req.body.street,
+      postal: req.body.postal,
+      city: req.body.city
+  }
   if (
     !validation.userDetailsAreValid(
       req.body.email,
@@ -16,10 +24,22 @@ async function signup(req, res, next) {
       req.body.fullname,
       req.body.street,
       req.body.postal,
-      req.body.city,
-    ) || !validation.emailIsConfirmed(req.body.email, req.body['confirm-email']) //other syntax because of the - in the name of confirm-email
+      req.body.city
+    ) ||
+    !validation.emailIsConfirmed(req.body.email, req.body['confirm-email']) //other syntax because of the - in the name of confirm-email
   ) {
-    res.redirect('/signup');
+    sessionFlash.flashDataToSession(
+      req,
+      {
+        errorMessage:
+          'Please check your input. Password must be at least 6 characters long, postal code must be 5 characters long.',
+          ...enteredData,
+      },
+      function () {
+        res.redirect('/signup');
+      },
+    );
+
     return;
   }
 
@@ -33,14 +53,20 @@ async function signup(req, res, next) {
   );
   //we create a concrete instance of a User blueprint
 
-  
-
   try {
     const existsAlready = await user.existsAlready(); //checks for existing user
-  if(existsAlready){
-    res.redirect('/signup');
-    return;
-  }
+    if (existsAlready) {
+      sessionFlash.flashDataToSession(req,{
+        errorMessage: 'User exists already! Try logging in instead!',
+        ...enteredData,
+        
+      },
+         function(){
+        res.redirect('/signup');
+      });
+      
+      return;
+    }
     await user.signup(); /* We call the signup method, which is defined
   to store that user in the database.
   the signup method returns a promise */
@@ -69,8 +95,18 @@ async function login(req, res, next) {
     return;
   }
 
+  const sessionErrorData ={
+      errorMessage: 'Invalid credentials - please double-check your email and password!',
+      email: user.email,
+      password: user.password //The data were stored in the User
+    };
+
   if (!existingUser) {
+    sessionFlash.flashDataToSession(req, sessionErrorData , 
+      function(){
     res.redirect('/login');
+    });
+    
     return;
   }
   const passwordIsCorrect = await user.hasMatchingPassword(
@@ -78,7 +114,10 @@ async function login(req, res, next) {
   );
 
   if (!passwordIsCorrect) {
+    sessionFlash.flashDataToSession(req, sessionErrorData , 
+      function(){
     res.redirect('/login');
+    });
     return;
   }
 
