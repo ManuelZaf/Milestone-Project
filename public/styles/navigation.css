@@ -1,47 +1,108 @@
+main {
+  margin-top: 6rem;
+}
+
 #main-header {
-    width:100%;
-    max-width: 60rem;
-    height: 5rem;
-    margin: 0 auto;
-    padding: 0 var(--space-6);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--color-primary-500);
-    background-color: var(--color-gray-500);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 60rem;
+  height: 5rem;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-primary-500);
+  background-color: var(--color-gray-500);
 }
 
-#logo a{
-    font-weight: bold;
-    font-size: 2rem;
-
+#logo a {
+  font-weight: bold;
+  font-size: 2rem;
 }
 
+#main-header nav {
+  display: none;
+}
 
 .nav-items {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+}
+
+.nav-items li {
+  margin: 0 var(--space-2);
+}
+
+#mobile-menu-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border: none;
+  cursor: pointer;
+  width: 2.25rem;
+  height: 2.25rem;
+  background-color: transparent;
+  padding: 0;
+}
+
+#mobile-menu-btn span {
+  width: 2.25rem;
+  height: 0.2rem;
+  background-color: var(--color-gray-100);
+}
+
+#mobile-menu {
+  position: fixed;
+  top: 5rem;
+  left:0;
+  height: calc(100vh - 5rem);
+  /* vh is a special unit for the viewport height
+  which is the total % available height of the screen */
+  width: 100%;
+  background-color: var(--color-gray-700);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
 }
 
-.nav-items li{
-    margin: 0 var(--space-2);
-}
 
-#mobile-menu-btn{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    border: none;
-    cursor: pointer;
-    width: 2.25rem;
-    height: 2.25rem;
-    background-color: transparent;
-    padding: 0;
-}
 
-#mobile-menu-btn span{
-    width: 2.25rem;
-    height: 0.2rem;
-    background-color: var(--color-gray-100);
+@media (min-width: 48rem) {
+  main {
+    margin-top: 6rem;
+    /* on desktop I don't push the content down */
+  }
+
+  #main-header {
+    position: static;
+  }
+
+  #main-header nav {
+    display: block;
+    /* the nav texts are visible for the desktop version */
+  }
+
+  #mobile-menu-btn {
+    display: none;
+    /* the nav on the right is not visible for the desktop version */
+  }
+
+  #mobile-menu {
+    display: none;
+    /* the nav on the right is not visible for the desktop version */
+  }
+
+  .nav-items a:hover {
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--border-radius-small);
+  }
+
+  .nav-items a:hover,
+  .nav-items a:active {
+    background-color: var(--color-primary-500-bg);
+  }
 }
