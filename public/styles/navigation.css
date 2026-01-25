@@ -28,12 +28,24 @@ main {
 }
 
 .nav-items {
+  height: 100%;
   display: flex;
   align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .nav-items li {
   margin: 0 var(--space-2);
+}
+
+.nav-items button {
+  cursor: pointer;
+  font: inherit;
+  border: 1px solid var(--color-primary-100);
+  border-radius: var(--border-radius-small);
+  background-color: transparent;
+  padding: var(--space-2) var(--space-4);
 }
 
 #mobile-menu-btn {
@@ -69,7 +81,17 @@ main {
 
 }
 
+#mobile-menu nav {
+  height: 20rem;
+  width: 90%;
+  margin: var(--space-4) auto;
+}
 
+#mobile-menu .nav-items a,
+#mobile-menu .nav-items button {
+  font-size: 1.75rem;
+  color: var(--color-primary-100);
+}
 
 @media (min-width: 48rem) {
   main {
@@ -86,6 +108,11 @@ main {
     /* the nav texts are visible for the desktop version */
   }
 
+  .nav-items button {
+    color: var(--color-primary-500);
+    border-color: var(--color-primary-500);
+  }
+
   #mobile-menu-btn {
     display: none;
     /* the nav on the right is not visible for the desktop version */
@@ -96,7 +123,12 @@ main {
     /* the nav on the right is not visible for the desktop version */
   }
 
-  .nav-items a:hover {
+  .nav-items {
+    flex-direction: row;
+    /* Change the flex-direction for a big screen */
+  }
+
+  .nav-items a {
     padding: var(--space-2) var(--space-4);
     border-radius: var(--border-radius-small);
   }
