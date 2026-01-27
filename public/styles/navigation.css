@@ -75,10 +75,14 @@ main {
   which is the total % available height of the screen */
   width: 100%;
   background-color: var(--color-gray-700);
-  display: flex;
+  display: none; /* We make it visible with browser Javascript */
   flex-direction: column;
   align-items: center;
 
+}
+
+#mobile-menu.open { /* Selection of id mobile-menu AND class 'open' */
+  display: flex;
 }
 
 #mobile-menu nav {
