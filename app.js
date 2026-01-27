@@ -12,6 +12,8 @@ const authRoutes = require('./routes/auth.routes');
 const checkAuthStatusMiddleware = require('./middlewares/check-auth');
 const productRoutes = require('./routes/products.routes');
 const baseRoutes = require('./routes/base.routes');
+const adminRoutes = require('./routes/admin.routes');
+
 const app = express();
 
 app.set('view engine', 'ejs'); //Activation of ejs package
@@ -31,6 +33,8 @@ app.use(checkAuthStatusMiddleware);
 app.use(baseRoutes);
 app.use(authRoutes);
 app.use(productRoutes);
+app.use('/admin', adminRoutes); //With /admin parameter only paths with /admin
+//will make it into the adminRoutes 
 
 app.use(errorHandlerMiddleware);
 
