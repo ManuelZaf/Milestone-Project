@@ -5,7 +5,10 @@
     <%- include('../../shared/includes/header')%>
 <main>
     <h1>Add new Product</h1>
-    <form action="" method="">
+    <form action="/admin/products?_csrf=<%= locals.csrfToken %>" method="POST" enctype="multipart/form-data">
+        <!-- enctype should be multipart/form-data because of the file type data in the form -->
+         <!-- the csrf Token doesn't work with the enctype multipart. The TOken can be added as a query parameter
+         on the path, on the URL of the request. -->
         <p>
             <label for="title">Title</label>
             <input type="text" id="title" name="title" required>
