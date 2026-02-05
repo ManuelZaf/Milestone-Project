@@ -20,6 +20,7 @@ app.set('view engine', 'ejs'); //Activation of ejs package
 app.set('views', path.join(__dirname, 'views')); //we use the path package to set up the ejs
 
 app.use(express.static('public'));
+app.use('/products/assets', express.static('product-data')); //like in the routes the first parameter is a filter
 app.use(express.urlencoded({ extended: false }));
 
 const sessionConfig = createSessionConfig();
