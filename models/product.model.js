@@ -8,8 +8,7 @@ class Product {
     this.price = +productData.price; // the plus is the value to be a number
     this.description = productData.description;
     this.image = productData.image; //the name of the image file
-    this.imagePath = `product-data/images/${productData.image}`;
-    this.imageUrl = `/products/assets/images/${productData.image}`;
+    this.updateImageData(); //method to update image path and url
     if (productData._id) {
       // by new product _id is undefined, calling toString would fail
       this.id = productData._id.toString(); //convertion to string
@@ -20,7 +19,7 @@ class Product {
     let prodId;
     try {
       //try fpr ObjectId, if it fails then error 404
-       prodId = new mongodb.ObjectId(productId);
+      prodId = new mongodb.ObjectId(productId);
     } catch (error) {
       error.code = 404;
       throw error;
@@ -36,7 +35,7 @@ class Product {
       error.code = 404;
       throw error;
     }
-    return product;
+    return new Product(product);
   }
 
   static async findAll() {
@@ -52,6 +51,12 @@ class Product {
     });
   }
 
+  updateImageData() {
+    //a method to set image path and url
+    this.imagePath = `product-data/images/${this.image}`;
+    this.imageUrl = `/products/assets/images/${this.image}`;
+  }
+
   async save() {
     const productData = {
       title: this.title,
@@ -60,7 +65,36 @@ class Product {
       description: this.description,
       image: this.image,
     };
-    await db.getDb().collection('products').insertOne(productData);
+
+    if (this.id) {
+      //if it's true, means the product exists and we want to update
+      const productId = new mongodb.ObjectId(this.id);
+
+      if (!this.image) {
+        // Image data should'nt be overwrited in the database with undefined. So we check if this.image is a thing
+        delete productData.image;
+        /* The keyword delete, deletes the image key data from the productData object entirely.
+        Then the updating object will not have the image field
+         */
+      }
+
+      await db.getDb().collection('products').updateOne(
+        { _id: productId },
+        {
+          $set: productData,
+        },
+      );
+    } else {
+      await db.getDb().collection('products').insertOne(productData);
+    }
+  }
+
+  async replaceImage(newImage) {
+    //method which gets a newImage and will replace the old with that new one
+    //I get the name of the image as it was created by multer
+    //I want to update the image path and URL
+    this.image = newImage;
+    this.updateImageData();
   }
 }
 
