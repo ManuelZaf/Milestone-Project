@@ -17,5 +17,7 @@ router.get('/products/:id', adminController.getUpdateProduct);
 router.post('/products/:id', imageUploadMiddleware, adminController.updateProduct);
 //we need the middleware to upload the image, since the form has enctype = multipart7form-data
 
+router.delete('/products/:id', adminController.deleteProduct);
+
 
 module.exports = router;

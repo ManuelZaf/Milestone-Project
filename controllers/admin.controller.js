@@ -40,24 +40,35 @@ async function getUpdateProduct(req, res, next) {
   }
 }
 
-async function updateProduct(req, res, next) { //this function is triggered, if a POST request is being sent to admin.route
+async function updateProduct(req, res, next) {
+  //this function is triggered, if a POST request is being sent to admin.route
   const product = new Product({
     ...req.body, //the ... for all req.body fields
-    _id: req.params.id
+    _id: req.params.id,
   });
-  if(req.file){
+  if (req.file) {
     // replace the old image with the new one
     product.replaceImage(req.file.filename);
   }
-  try{
+  try {
     await product.save();
-  } catch (error){
+  } catch (error) {
     next(error);
     return;
   }
   res.redirect('/admin/products');
-  
-} 
+}
+
+async function deleteProduct(req, res, next) {
+  let product;
+  try {
+    product = await Product.findById(req, params.id);
+    await product.remove();
+  } catch (error) {
+    return next(error);
+  }
+  res.redirect('/admin/products');
+}
 
 module.exports = {
   getProducts: getProducts,
@@ -65,4 +76,5 @@ module.exports = {
   createNewProduct: createNewProduct,
   getUpdateProduct: getUpdateProduct,
   updateProduct: updateProduct,
+  deleteProduct: deleteProduct,
 };
