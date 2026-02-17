@@ -3,9 +3,9 @@ const deleteProductButtonElements = document.querySelectorAll('.product-item but
 async function deleteProduct(event) {
     const buttonElement = event.target;
     const productId = buttonElement.dataset.productid;
-    const csrfToken = butoonElement.dataset.csrf;
+    const csrfToken = buttonElement.dataset.csrf;
 
-    const reponse = await fetch('/admin/products/' + productId + '?_csrf=' + csrfToken, {
+    const response = await fetch('/admin/products/' + productId + '?_csrf=' + csrfToken, {
         method: 'DELETE'
     });
     //built-in Axios package. So that we can send the productId to my backend
