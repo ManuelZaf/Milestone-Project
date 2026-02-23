@@ -1,25 +1,27 @@
-class Cart {
-  constructor(items = []) {
-    //We give a default value to items
-    this.items = items;
+const Product = require('../models/product.model');
+
+async function addCartItem(req, res) {
+  let product;
+  try {
+    product = await Product.findById(req.body.productId); //POST requests have a body
+  } catch (error) {
+    next(error);
+    return;
   }
 
-  addItem(product) {
-    const cartItem = {
-      product: product,
-      quantity: 1,
-      totalPrice: product.price,
-    };
+  const cart = res.locals.cart;
 
-    for (let i = 0; i < this.items.length; i++) {
-      const item = this.items[i];
-      if (item.product.id === product.id) {
-        cartItem.quantity = cartItem.quantity + 1;
-        cartItem.totalPrice = cartItem.totalPrice + product.price;
-        this.items[i] = cartItem;
-        return;
-      }
-    }
-    this.items.push(cartItem);
-  }
+  cart.add.addItem(product);
+  req.session.cart = cart; //I overwrite the cart data in my session, not in res.locals
+
+
+  res.status(201).json({
+    message: 'Cart updated',
+    newTotalItems: cart.totalQuantity
+  });
+  //We set a status code, which is a success status code
 }
+
+module.exports = {
+  addCartItem: addCartItem,
+};
