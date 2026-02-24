@@ -11,7 +11,7 @@ async function addCartItem(req, res) {
 
   const cart = res.locals.cart;
 
-  cart.add.addItem(product);
+  cart.addItem(product);
   req.session.cart = cart; //I overwrite the cart data in my session, not in res.locals
 
 

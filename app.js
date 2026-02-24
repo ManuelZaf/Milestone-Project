@@ -15,6 +15,7 @@ const authRoutes = require('./routes/auth.routes');
 const productRoutes = require('./routes/products.routes');
 const baseRoutes = require('./routes/base.routes');
 const adminRoutes = require('./routes/admin.routes');
+const cartRoutes = require('./routes/cart.routes');
 
 
 const app = express();
@@ -25,6 +26,7 @@ app.set('views', path.join(__dirname, 'views')); //we use the path package to se
 app.use(express.static('public'));
 app.use('/products/assets', express.static('product-data')); //like in the routes the first parameter is a filter
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json()); //All incoming requests are checked for JSON data
 
 const sessionConfig = createSessionConfig();
 app.use(expressSession(sessionConfig));
@@ -38,6 +40,7 @@ app.use(checkAuthStatusMiddleware);
 app.use(baseRoutes);
 app.use(authRoutes);
 app.use(productRoutes);
+app.use('/cart',cartRoutes);
 app.use(protectRoutesMiddleware);
 app.use('/admin', adminRoutes); //With /admin parameter only paths with /admin
 //will make it into the adminRoutes 
