@@ -1,0 +1,17 @@
+<article class="cart-item">
+  <div class="cart-item-info">
+    <h2><%= item.product.title %></h2>
+    <!-- item is the keyname in the cart.ejs include -->
+    <p>
+      $<%= item.totalPrice.toFixed(2) %>
+      <span class="cart-product-price"
+        >($<%= item.product.price.toFixed(2) %>)</span
+      >
+    </p>
+  </div>
+
+  <div class="cart-item-management"></div>
+  <input type="number" value="<%= item.quantity %>" required />
+  <!-- value from cart.model -->
+  <button class="btn btn-alt">Update</button>
+</article>

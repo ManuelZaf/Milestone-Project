@@ -1,0 +1,22 @@
+<%- include('../../shared/includes/head', { pageTitle: 'Your Cart'}) %>
+<link rel="stylesheet" href="/styles/cart.css">
+</head>
+<body>
+    <%- include('../../shared/includes/header')%>
+<main>
+<h1>Your Cart</h1>
+<ul id="cart-items">    
+<!-- Thanks to our custom cart middleware, the cart (data) is available on the locals property-->
+    <% for (const cartItem of locals.cart.items) { %>   
+<li>
+    <%- include('includes/cart-item', {item: cartItem}) %>  <!-- cartItem in the brackets is the cartItem in the loop --> 
+</li>
+    <% } %>
+</ul>
+<div id="cart-total"></div>
+<p>Total: $<%= locals.cart.totalPrice.toFixed(2) %></p> <!-- built-in in JS to round up a value -->
+<button class="btn">Buy Products</button>
+
+</main>
+
+<%- include('../../shared/includes/footer')%>

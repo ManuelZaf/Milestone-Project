@@ -1,5 +1,12 @@
 const Product = require('../models/product.model');
 
+
+function getCart(req, res){
+  res.render('customer/cart/cart');
+  //We don't need to pass any data to that render method because the only data we use is accessed with locals key
+  //which is available anyways, in all views. That is the idea behind res.locals.
+}
+
 async function addCartItem(req, res) {
   let product;
   try {
@@ -24,4 +31,5 @@ async function addCartItem(req, res) {
 
 module.exports = {
   addCartItem: addCartItem,
+  getCart: getCart
 };
