@@ -25,6 +25,7 @@ app.set('views', path.join(__dirname, 'views')); //we use the path package to se
 
 app.use(express.static('public'));
 app.use('/products/assets', express.static('product-data')); //like in the routes the first parameter is a filter
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json()); //All incoming requests are checked for JSON data
 
@@ -36,6 +37,7 @@ app.use(cartMiddleware);
 app.use(addCsrfTokenMiddleware); /*the custom middleware using the CSRF package
 We don't execute the custom middleware. It is available for express to execute it*/
 app.use(checkAuthStatusMiddleware);
+
 
 app.use(baseRoutes);
 app.use(authRoutes);
