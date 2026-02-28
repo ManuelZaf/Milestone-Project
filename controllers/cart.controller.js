@@ -7,7 +7,7 @@ function getCart(req, res){
   //which is available anyways, in all views. That is the idea behind res.locals.
 }
 
-async function addCartItem(req, res) {
+async function addCartItem(req, res, next) {
   let product;
   try {
     product = await Product.findById(req.body.productId); //POST requests have a body
