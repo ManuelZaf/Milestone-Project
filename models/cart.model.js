@@ -7,6 +7,7 @@ class Cart {
   }
 
   addItem(product) {
+    console.log('123');
     const cartItem = {
       product: product,
       quantity: 1,
@@ -21,7 +22,7 @@ class Cart {
         this.items[i] = cartItem; //Update of the existing item
 
         this.totalQuantity++;
-        this.totalPrice += product.price;
+        this.totalPrice += product.price; //
         return;
       }
     }
