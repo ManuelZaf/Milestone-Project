@@ -10,7 +10,7 @@
     </p>
   </div>
 
-  <div class="cart-item-management">
+  <div class="cart-item-management" data-productid="<%= item.product.id data-csrf="<%= locals.csrfToken %>">
     <input type="number" value="<%= item.quantity %>" required />
     <!-- value from cart.model -->
     <button class="btn btn-alt">Update</button>
