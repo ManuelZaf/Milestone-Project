@@ -15,7 +15,7 @@
     <% } %>
 </ul>
 <div id="cart-total">
-  <p>Total: $<%= locals.cart.totalPrice.toFixed(2) %></p> <!-- built-in in JS to round up a value -->
+  <p>Total: $<span id="cart-total-price"><%= locals.cart.totalPrice.toFixed(2) %></span></p> <!-- built-in in JS to round up a value -->
 <button class="btn">Buy Products</button>  
 </div>
 

@@ -38,11 +38,11 @@ class Cart {
         const cartItem = {...item};
         const quantityChange = newQuantity -item.quantity;
         cartItem.quantity = newQuantity;
-        cartItem.totalPrice = newQuantity * product.price;
+        cartItem.totalPrice = newQuantity * item.product.price;
         this.items[i] = cartItem; //Update of the existing item
 
         this.totalQuantity = this.totalQuantity + quantityChange;
-        this.totalPrice += quantityChange * product.price;
+        this.totalPrice += quantityChange * item.product.price;
         return {updatedItemPrice: cartItem.totalPrice}; //instead of returning nothing, we can return some data. in this case 
         //we return the total price of the item
       } else if (item.product.id === productId && newQuantity <= 0) {
