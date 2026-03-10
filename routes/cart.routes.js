@@ -9,4 +9,6 @@ router.get('/', cartController.getCart);  // /cart/
 
 router.post('/items', cartController.addCartItem); // /cart/items...prefix setup in app.js
 
+router.patch('/items', cartController.updateCartItem);
+
 module.exports = router;
