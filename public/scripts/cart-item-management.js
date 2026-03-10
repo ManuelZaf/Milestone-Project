@@ -21,14 +21,12 @@ async function updateCartItem(event){
         body: JSON.stringify({
             productId: productId,
             quantity: quantity,
-            //_csrf: csrfToken
+            _csrf: csrfToken
 
         }),
         headers:{
             'Content-Type': 'application/json',
-            'CSRF-Token': csrfToken
-        },
-        credentials: 'same-origin'
+        }
     });
     } catch (error) {
         alert('Something went wrong!')
@@ -41,8 +39,13 @@ async function updateCartItem(event){
     }
     const responseData = await response.json();
 
-    const cartItemTotalPriceElement = form.parentElement.querySelector('.cart-item-price');
-    cartItemTotalPriceElement.textContent = responseData.updatedCartData.updatedItemPrice.toFixed(2);
+    if (responseData.updatedCartData.updatedItemPrice === 0) {
+    form.parentElement.parentElement.remove();
+    } else {
+       const cartItemTotalPriceElement = form.parentElement.querySelector('.cart-item-price');
+    cartItemTotalPriceElement.textContent = responseData.updatedCartData.updatedItemPrice.toFixed(2); 
+    }
+    
     
     cartTotalPriceElement.textContent = responseData.updatedCartData.newTotalPrice.toFixed(2);
 

@@ -30,6 +30,7 @@ async function addCartItem(req, res, next) {
 }
 
 function updateCartItem (req, res) {
+  console.log('PATCH BODY:', req.body);
   const cart = res.locals.cart;
   
 
@@ -38,7 +39,8 @@ function updateCartItem (req, res) {
   //updateItem method expects the productId and the newQuantity
   //in this constant we write the returned data
 
-
+  console.log('UPDATED DATA:', updatedItemData);
+  
   req.session.cart = cart; //I overwrite the cart data in my session, not in res.locals
 
   res.json({  //This updateCart action should be invoked by requests that are sent as AJAX request
