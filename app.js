@@ -16,6 +16,7 @@ const productRoutes = require('./routes/products.routes');
 const baseRoutes = require('./routes/base.routes');
 const adminRoutes = require('./routes/admin.routes');
 const cartRoutes = require('./routes/cart.routes');
+const ordersRoutes = require('./routes/orders.routes');
 
 
 const app = express();
@@ -44,8 +45,10 @@ app.use(authRoutes);
 app.use(productRoutes);
 app.use('/cart',cartRoutes);
 app.use(protectRoutesMiddleware);
+app.use('/orders', ordersRoutes);
 app.use('/admin', adminRoutes); //With /admin parameter only paths with /admin
 //will make it into the adminRoutes 
+
 
 app.use(errorHandlerMiddleware);
 

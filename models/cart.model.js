@@ -17,7 +17,7 @@ class Cart {
     for (let i = 0; i < this.items.length; i++) {
       const item = this.items[i];
       if (item.product.id === product.id) {
-        cartItem.quantity = item.quantity + 1; //Update of the existing quantity of the existing item
+        cartItem.quantity = +item.quantity + 1; //Update of the existing quantity of the existing item. The + to make it a number and avoid concat as a string
         cartItem.totalPrice = item.totalPrice + product.price; //Update of the existing total price of the existing item
         this.items[i] = cartItem; //Update of the existing item
 

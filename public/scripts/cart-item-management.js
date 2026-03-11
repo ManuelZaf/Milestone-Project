@@ -12,7 +12,7 @@ async function updateCartItem(event){
     const csrfToken = form.dataset.csrf;
     const quantity = form.firstElementChild.value;
 
-    console.log('DEBUG:', { productId, csrfToken, quantity });
+    //console.log('DEBUG:', { productId, csrfToken, quantity });
 
     let response;
     try{
@@ -40,7 +40,7 @@ async function updateCartItem(event){
     const responseData = await response.json();
 
     if (responseData.updatedCartData.updatedItemPrice === 0) {
-    form.parentElement.parentElement.remove();
+    form.parentElement.parentElement.remove();  //the parent of the parent element is the list element in cart.ejs 
     } else {
        const cartItemTotalPriceElement = form.parentElement.querySelector('.cart-item-price');
     cartItemTotalPriceElement.textContent = responseData.updatedCartData.updatedItemPrice.toFixed(2); 
