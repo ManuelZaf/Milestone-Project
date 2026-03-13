@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+const mongodb = require('mongodb');
 
 const db = require("../data/database.js");
 
@@ -12,6 +13,12 @@ class User {
       postalCode: postal,
       city: city,
     };
+  }
+
+  static findById(userId){  //this created for the orders controller
+    const uid = new mongodb.ObjectId(userId);
+    return db.getDb().collection('users').findOne({_id:uid},{password: -1}); //by the first parameter are the data you want to receive,
+    //and by the second with -1 the data can be excluded
   }
 
   getUserWithSameEmail() {
