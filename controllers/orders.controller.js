@@ -1,6 +1,10 @@
 const Order = require('../models/order.model');
 const User = require('../models/user.model');
 
+function getOrders(req, res) {
+    res.render('customer/orders/all-orders')
+}
+
 async function addOrder(req, res, next){
     const cart = res.locals.cart;
    let userDocument;
@@ -19,6 +23,7 @@ async function addOrder(req, res, next){
      return;
     }
 
+    req.session.cart = null; //we clear the cart before we redirtect to the orders views
     res.redirect('/orders');
     
 }
@@ -28,4 +33,5 @@ async function addOrder(req, res, next){
 
 module.exports = {
     addOrder: addOrder,
+    getOrders: getOrders,
 }

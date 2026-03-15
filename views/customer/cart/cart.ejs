@@ -18,6 +18,7 @@
   <p>Total: $<span id="cart-total-price"><%= locals.cart.totalPrice.toFixed(2) %></span></p> <!-- built-in in JS to round up a value -->
   <% if (locals.isAuth) { %>   <!-- only if the user is authenticate can see and click the Buy button -->
     <form action="/orders" method="POST">
+        <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
         <button class="btn">Buy Products</button>
     </form>
       
