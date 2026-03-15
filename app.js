@@ -10,6 +10,7 @@ const errorHandlerMiddleware = require('./middlewares/error-handler');
 const checkAuthStatusMiddleware = require('./middlewares/check-auth');
 const protectRoutesMiddleware = require('./middlewares/protect-routes');
 const cartMiddleware = require('./middlewares/cart');
+const updateCartPricesMiddleware = require('./middlewares/update-cart-prices');
 const authRoutes = require('./routes/auth.routes');
 //one dot means to look in the same folder
 const productRoutes = require('./routes/products.routes');
@@ -35,6 +36,7 @@ app.use(expressSession(sessionConfig));
 
 app.use(csrf()); //middleware to add CSRF package
 app.use(cartMiddleware);
+app.use(updateCartPricesMiddleware);
 app.use(addCsrfTokenMiddleware); /*the custom middleware using the CSRF package
 We don't execute the custom middleware. It is available for express to execute it*/
 app.use(checkAuthStatusMiddleware);
