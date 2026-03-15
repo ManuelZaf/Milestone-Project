@@ -1,3 +1,5 @@
+const Product = require ('./product.model');
+
 class Cart {
   constructor(items = [], totalQuantity = 0, totalPrice = 0) {
     //We give a default value to items
@@ -50,7 +52,6 @@ class Cart {
   }
 
   addItem(product) {
-    console.log('123');
     const cartItem = {
       product: product,
       quantity: 1,
