@@ -32,7 +32,7 @@ function updateCartItem(req, res) {
 
   const updatedItemData = cart.updateItem(
     req.body.productId,
-    +req.body.quantity,
+    +req.body.quantity, //the + is to ensure that the quanity is always a number and it will not be treated as a string
   ); //method from cart.model.js
   //updateItem method expects the productId and the newQuantity
   //in this constant we write the returned data

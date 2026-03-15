@@ -54,6 +54,9 @@ class Product {
   static async findMultiple(ids) {
     const productIds = ids.map(function(id) {
       return new mongodb.ObjectId(id);
+//       MongoDB stores _id fields as ObjectId objects, not plain strings.
+// If you pass strings directly into a query, MongoDB won’t match them unless they are already stored as strings.
+// This step ensures all IDs are in the correct ObjectId format for querying. Convert string IDs to MongoDB ObjectId instances
     })
     
     const products = await db
@@ -61,9 +64,15 @@ class Product {
       .collection('products')
       .find({ _id: { $in: productIds } })
       .toArray();
+//       .find({ _id: { $in: productIds } }) finds all documents where _id is in the productIds array.
+// .toArray() converts the cursor (stream of results) into a JavaScript array
 
     return products.map(function (productDocument) {
       return new Product(productDocument);
+      // Instead of returning raw MongoDB documents, each result is passed into your Product class constructor.
+//       $in is a MongoDB operator that matches any value in a given array.
+// Converting to ObjectId is crucial when _id fields are stored as ObjectId in MongoDB.
+// Wrapping results in a class makes your code more object-oriented and maintainable.
     });
   }
 

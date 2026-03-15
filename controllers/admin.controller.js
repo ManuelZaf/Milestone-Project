@@ -83,7 +83,7 @@ async function getOrders(req, res, next) {
 }
 
 async function updateOrder(req, res, next) {
-  const orderId = req.params.id;
+  const orderId = req.params.id; //from the request path, dynamic path parameter
   const newStatus = req.body.newStatus;
 
   try {

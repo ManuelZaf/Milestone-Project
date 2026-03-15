@@ -1,4 +1,4 @@
-const updateOrderFormElements = document.querySelectorAll(
+const updateOrderFormElements = document.querySelectorAll( //can be multiple items, have to choose all of them
   '.order-actions form'
 );
 
@@ -7,6 +7,8 @@ async function updateOrder(event) {
   const form = event.target;
 
   const formData = new FormData(form);
+  //built-in class in JS, can extract data from the form
+  //using this .get method to get the different values that are part of the that form
   const newStatus = formData.get('status');
   const orderId = formData.get('orderid');
   const csrfToken = formData.get('_csrf');

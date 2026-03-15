@@ -10,6 +10,8 @@ class Cart {
 
   async updatePrices() {
     const productIds = this.items.map(function (item) {
+      //I want to find all the products where the product ID is one of the IDs specified in a given array.
+      // 
       return item.product.id;
     });
 
@@ -26,7 +28,7 @@ class Cart {
         // product was deleted!
         // "schedule" for removal from cart
         deletableCartItemProductIds.push(cartItem.product.id);
-        continue;
+        continue; //stops the loop?
       }
 
       // product was not deleted
@@ -36,8 +38,11 @@ class Cart {
     }
 
     if (deletableCartItemProductIds.length > 0) {
-      this.items = this.items.filter(function (item) {
+      this.items = this.items.filter(function (item) { //drop or keep an item through the filter process
         return deletableCartItemProductIds.indexOf(item.product.id) < 0;
+        // we’re filtering the cart items to remove any whose product ID appears in the array deletableCartItemProductIds.
+        //If the product ID is NOT in the deletable list, indexOf returns -1, which is < 0, so the item is kept.
+        // If the product ID IS in the deletable list, indexOf returns something like 0, 1, 2, etc., which is NOT < 0, so the item is filtered out.
       });
     }
 
