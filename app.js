@@ -11,6 +11,7 @@ const checkAuthStatusMiddleware = require('./middlewares/check-auth');
 const protectRoutesMiddleware = require('./middlewares/protect-routes');
 const cartMiddleware = require('./middlewares/cart');
 const updateCartPricesMiddleware = require('./middlewares/update-cart-prices');
+const notFoundMiddleware = require('./middlewares/not-found');
 const authRoutes = require('./routes/auth.routes');
 //one dot means to look in the same folder
 const productRoutes = require('./routes/products.routes');
@@ -46,11 +47,13 @@ app.use(baseRoutes);
 app.use(authRoutes);
 app.use(productRoutes);
 app.use('/cart',cartRoutes);
-app.use(protectRoutesMiddleware);
-app.use('/orders', ordersRoutes);
-app.use('/admin', adminRoutes); //With /admin parameter only paths with /admin
+//app.use(protectRoutesMiddleware);
+app.use('/orders', protectRoutesMiddleware, ordersRoutes); //We can add the protectRoutesMiddleware as
+//a second parameter value. app.use can take more than just 2 parameter values. Multiple middlewares can be added here
+app.use('/admin', protectRoutesMiddleware, adminRoutes); //With /admin parameter only paths with /admin
 //will make it into the adminRoutes 
 
+app.use(notFoundMiddleware);
 
 app.use(errorHandlerMiddleware);
 

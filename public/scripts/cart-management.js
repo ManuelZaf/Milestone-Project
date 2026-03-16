@@ -2,12 +2,12 @@ const addToCartButtonElement = document.querySelector(
   '#product-details button',
 );
 
-const cartBadgeElement = document.querySelector('.nav-items .badge');
+const cartBadgeElements = document.querySelectorAll('.nav-items .badge');
 
 async function addToCart() {
   const productId = addToCartButtonElement.dataset.productid; //We have access to this from the dataset attribute of this element
   const csrfToken = addToCartButtonElement.dataset.csrf;
-  
+
   let response;
 
   try {
@@ -17,7 +17,7 @@ async function addToCart() {
         productId: productId,
         //We need to provide the productId of the product that should be added to the cart.
         //We need that in the cart.contorller from the incoming request body.
-        _csrf: csrfToken
+        _csrf: csrfToken,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -38,7 +38,9 @@ async function addToCart() {
 
   const newTotalQuantity = responseData.newTotalItems;
 
-  cartBadgeElement.textContent = newTotalQuantity 
+  for (const cartBadgeElement of cartBadgeElements) {
+    cartBadgeElement.textContent = newTotalQuantity;
+  }
 }
 
 addToCartButtonElement.addEventListener('click', addToCart);
