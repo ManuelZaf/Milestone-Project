@@ -68,18 +68,28 @@ This structure ensures scalability, maintainability, and separation of concerns.
 
 ```bash
 git clone git@github.com:ManuelZaf/Milestone-Project.git
+```
+```bash
 cd your-repo-name
-
+```
 
 2. Install dependencies:
+```bash
 npm install
+```
 
 3. Create a .env file:
+```bash
 MONGO_URI=your_mongodb_connection
 SESSION_SECRET=your_secret
+```
 
 4. Start the application:
+```bash
 npm start
+```
 
 5. Open in browser:
+```bash
 http://localhost:3000
+```
